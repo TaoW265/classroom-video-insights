@@ -1,0 +1,34 @@
+{
+  "record_date": "2026-09-20",
+  "verification_date": "2026-10-12",
+  "model": "DeepSeekV4-Flash",
+  "measurement": "finished_at minus created_at; includes task queue/orchestration; excludes upload",
+  "sample_count": 2,
+  "task_intervals_overlap": true,
+  "source_backend_commit": "8225bb2c9e9d22744fa3fd4a71c1a2381caaee29",
+  "source_frontend_commit": "f24990b434566240411da490d02add335c370f7f",
+  "historical_hardware": "not recorded",
+  "new_model_calls": 0,
+  "samples": [
+    {
+      "sample": "A",
+      "video_duration_sec": 2755.23,
+      "task_wall_sec": 409.83879,
+      "step2_elapsed_sec": 271.9,
+      "chapters": 10,
+      "dimensions": 47,
+      "s4_attempts": 10,
+      "s4_failures": 0
+    },
+    {
+      "sample": "B",
+      "video_duration_sec": 2409.41,
+      "task_wall_sec": 370.648046,
+      "step2_elapsed_sec": 204.9,
+      "chapters": 10,
+      "dimensions": 47,
+      "s4_attempts": 10,
+      "s4_failures": 0
+    }
+  ]
+}

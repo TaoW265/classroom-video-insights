@@ -1,0 +1,27 @@
+{
+  "sample_kind": "synthetic",
+  "title": "演示课堂 · 可评价范围示例",
+  "chapters": [
+    {
+      "id": "interaction",
+      "title": "师生互动",
+      "score": 50,
+      "evaluation": "unavailable",
+      "narrative": "模拟学生证据不可用，兼容数值不作为质量评价。"
+    },
+    {
+      "id": "content",
+      "title": "教学内容",
+      "score": 80,
+      "evaluation": "partial",
+      "narrative": "模拟部分信号可用，仅展示该范围内的评价。"
+    },
+    {
+      "id": "observed-zero",
+      "title": "有效零观测",
+      "score": 0,
+      "evaluation": "available",
+      "narrative": "模拟可靠证据下的真实零值，保持显示为 0。"
+    }
+  ]
+}
