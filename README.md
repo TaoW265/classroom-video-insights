@@ -1,50 +1,89 @@
 # Classroom Video Insights
-课堂视频复盘与证据分析平台 · 项目展示与精选实现
 
-> 展示初稿。真实截图、报告和演示视频暂未公开。以下样例全部为合成数据，代码独立编写；生产代码公开权限尚待确认。
+**课堂视频复盘与证据分析平台 · 工程作品集**
 
-面向教师和教研人员，将课堂视频处理为可追溯的课堂记录、分析指标和复盘报告。关注长任务处理、证据边界、报告展示与部署可靠性。
+面向教师和教研人员，把课堂视频整理成结构化课堂记录、分析指标和可回看的复盘报告，减少在长视频中反复查找片段的成本。本作品集展示实际前端报告界面，并通过独立编写的可运行示例，说明**证据缺失、评分计算与显示状态如何保持一致**。
 
-## 我的职责
-全流程负责：需求分析、产品流程、技术架构、视频预处理与分析流水线、前后端实现、接口兼容、测试、部署迁移与故障定位。详见[职责说明](docs/contributions.md)。
+**原平台：**课堂视频 → 预处理与转写 → 分析与校验 → 报告、图表和证据片段。
 
-## 展示入口
-| 内容 | 状态 |
-| --- | --- |
-| [任务处理、报告总览、证据回看截图](assets/screenshots/README.md) | 真实脱敏材料待补充 |
-| [一分钟演示视频](assets/demo/README.md) | 待补充 |
-| [合成报告预览](samples/report/report-preview.html) | 可本地打开的独立静态展示页面 |
-| [样例 JSON](samples/report/report.sample.json) | 合成展示数据，不是生产交付 JSON |
+**公开代码示例：**合成信号 → Python 证据范围判断及聚合 → JSON → JavaScript 显示结果，无模型或付费服务依赖。
 
-预览页面独立编写，不代表原产品真实界面或课堂评价。
+## 先看效果
 
-## 技术与架构
-原系统采用 React、Vite、ECharts、Python、FastAPI，以及视频处理、ASR HTTP 服务和可配置语言模型。任务与运行产物持久化，部署经历原生进程和 Docker 环境。[架构说明](docs/architecture.md)
+[产品截图与图注](assets/screenshots/README.md) · [实际操作录屏](assets/demo/product-walkthrough.mp4) · [录屏说明](assets/demo/README.md) · [合成输入](samples/report/signals.synthetic.json) · [示例输出](samples/report/report.sample.json)
 
-本仓库示例仅使用 Python 与 Node.js 标准库，无模型、密钥、视频或付费服务依赖。
+![实际前端的教学模式分析界面：章节诊断、课堂模式、发现与建议；用户提供素材的裁切版本](assets/screenshots/teaching-mode.png)
 
-## 三个工程案例
-1. [证据与评分一致性](docs/case-studies/evidence-aware-scoring.md)：区分缺失证据、可靠零观测和部分可评价。
-2. [异步视频处理](docs/case-studies/asynchronous-video-processing.md)：阶段状态、取消和失败恢复。
-3. [部署与数据保全](docs/case-studies/deployment-and-data-preservation.md)：运行来源核对、历史保全与回滚。
+*截图来自用户提供的前端报告素材，展示已有结果的阅读方式；不是本轮新跑分析，也不是合成示例输出。界面中的分数和指标仅用于说明显示内容，不作为准确率或新验收结论。*
 
-## 运行精选示例
-Python 3.10+、Node.js 22+：
+[![实际前端操作录屏封面](assets/demo/poster.png)](assets/demo/product-walkthrough.mp4)
+
+*点击封面查看用户提供录屏的编辑版本。保留实际报告浏览过程，裁去身份信息、历史列表和课堂画面，去除音轨；[五张截图](assets/screenshots/README.md)分别展示报告总览、教学模式、Rt–Ch图、话语分布与指标说明。*
+
+## 我负责什么
+
+| 范围 | 可以核查的工作 | 贡献口径 |
+| --- | --- | --- |
+| 本公开代码示例 | 证据范围与加权规则、状态显示、合成输入到JSON及终端显示的生成、测试与内容检查 | 独立编写，可直接运行；不是实际前端源码 |
+| 原平台维护 | 需求与流程、预处理和分析接口、任务与报告链路、前端状态及历史兼容、回归与部署排查 | 既有职责记录；具体模块的独立实现与主要维护范围待逐项核实 |
+| 团队协作 | 核心生产代码被合作团队用于尚在内测的产品 | 合作团队的产品化、后续开发和上线成果不归为个人成果 |
+
+[个人贡献与待核实分工](docs/contributions.md)。ASR、语言模型和框架属于外部能力。
+
+## 架构与技术判断
+
+~~~text
+原平台：视频 → Step1 预处理 / ASR → Step2 指标与模型分析
+                                      ↓
+                       结构与一致性校验 → 报告 / 图表 / 证据
+
+公开示例：signals.synthetic.json → aggregate(signals)
+               → report.sample.json → scoreView → 终端显示结果
+~~~
+
+原系统使用 React、Vite、ECharts、Python、FastAPI 及外部 ASR/语言模型。公开代码只使用 Python 与 Node.js 标准库；截图和录屏用于展示真实前端，示例不重建该界面。详见[架构说明](docs/architecture.md)。
+
+## 三个代表案例
+
+**[证据与评分一致性](docs/case-studies/evidence-aware-scoring.md)**：缺少学生证据不能当成低分；可靠零值继续参与计算；部分可评价时缩小有效分母，并在显示端说明范围。包含输入输出、错误算例、旧数据兼容、测试和取舍。
+
+| 合成场景 | Python结果 | JavaScript显示 | 判断 |
+| --- | --- | --- | --- |
+| 正常可评价 | 85 / available | 85 | 两项有效信号按权重聚合 |
+| 缺少证据 | null / unavailable | 待确认 | 不把兼容数值50当成评价 |
+| 部分可评价 | 80 / partial | 80，附范围说明 | 不可用项退出加权，保留有效教师侧信号 |
+| 可靠零值 | 0 / available | 0 | 有效零值保留，不能按数值猜缺失 |
+
+**[异步视频处理](docs/case-studies/asynchronous-video-processing.md)**：阶段进度、取消和失败应与“报告是否可评价”分开，说明原系统的流程和边界。
+
+**[部署与数据保全](docs/case-studies/deployment-and-data-preservation.md)**：维护时核对实际运行来源、可写存储和历史数据，说明迁移与回滚所需判断。
+
+## 运行公开示例
+
+需要 **Python 3.10+、Node.js 22+**，不需要安装Python/npm依赖。从仓库根目录运行：
+
+~~~sh
+python3 scripts/run-demo.py
+~~~
+
+命令生成[结果JSON](samples/report/report.sample.json)，再调用JavaScript显示函数，在终端输出四种状态：**85、待确认、80（部分可评价）、0**。也可单独运行显示端：
+
+~~~sh
+node examples/report-display/print-report.mjs samples/report/report.sample.json
+~~~
+
+字段映射、兼容行为和完整命令见[examples](examples/README.md)。实际界面通过本页截图和录屏查看；仓库不提供替代前端或另建演示页面。
+
+## 验证与展示范围
+
 ~~~sh
 python3 -m unittest discover -s examples/evidence-scoring -p 'test_*.py' -v
-node --test examples/report-display/score-view.test.mjs
-node scripts/render-report.mjs
+node --test examples/report-display/*.test.mjs
+python3 -m unittest discover -s scripts -p 'test_*.py' -v
+python3 scripts/run-demo.py --check
 python3 scripts/check-showcase.py
 ~~~
-用浏览器打开 samples/report/report-preview.html。若需 HTTP 浏览：
-~~~sh
-python3 -m http.server 8000 --bind 127.0.0.1
-~~~
-访问 http://127.0.0.1:8000/samples/report/report-preview.html 。
 
-## 验证、性能和许可
-[验证记录](docs/validation.md)区分原系统验收与示例测试。
-[性能核对](docs/performance.md)记录两个历史完整任务；它们不是新基准或普遍耗时承诺。
-[第三方说明](THIRD_PARTY_NOTICES.md)、[许可核对](docs/license-review.md)、[限制](docs/limitations.md)。
+[本次验证记录](docs/validation.md)列出实际测试及媒体检查；原系统历史数字单独存档。[历史性能记录](docs/performance.md)不是本示例基准，也不构成准确率或通用耗时承诺。
 
-原系统四仓库及内嵌分析包未发现许可证文件；未复制生产源码、依赖包或真实课堂材料，也未为其声明 MIT 许可。
+实际前端素材由仓库所有者提供并授权发布本次编辑版本，原件保留在本机且排除仓库交付；完整生产源码、课堂音视频、转写和内部数据不在公开代码范围。真实界面与合成代码示例分别标注，简化规则不等于生产完整量表或评价算法。职责细分及其他素材的公开范围见[贡献说明](docs/contributions.md)；[展示限制](docs/limitations.md)、[来源与第三方说明](THIRD_PARTY_NOTICES.md)、[许可核对](docs/license-review.md)。未为原系统声明MIT等许可证，未发布独立网站。有限内容扫描不替代完整隐私或法律审计。

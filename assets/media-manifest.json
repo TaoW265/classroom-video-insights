@@ -1,0 +1,128 @@
+{
+  "entries": [
+    {
+      "path": "assets/screenshots/report-overview.png",
+      "kind": "screenshot",
+      "source_kind": "user-provided-frontend-crop",
+      "sha256": "ea5b332f5fc27fba235dd1c194950669b49316982ff85d3e711624a9a8af9c4d",
+      "source_sha256": "d7b3775a328383aa662a2418a191fb7ec0ed64182ad3c4add596205f2bffd2e6",
+      "edits": {
+        "crop_xywh": [
+          620,
+          565,
+          2750,
+          465
+        ]
+      }
+    },
+    {
+      "path": "assets/screenshots/teaching-mode.png",
+      "kind": "screenshot",
+      "source_kind": "user-provided-frontend-crop",
+      "sha256": "829f556ddfb453e66ba1548446bdf817d95f0a9ba443939bb737f61ef5149e98",
+      "source_sha256": "2d48cb6562607eb0b64a20259b8fb71e9c168f832e890cc1a7da41cc2ad08083",
+      "edits": {
+        "crop_xywh": [
+          620,
+          420,
+          3080,
+          950
+        ]
+      }
+    },
+    {
+      "path": "assets/screenshots/rt-ch-chart.png",
+      "kind": "screenshot",
+      "source_kind": "user-provided-frontend-crop",
+      "sha256": "395672721ccfd3182a2a43002dd8f9a7bc9cb81ac83196ba9951e9b09b13bcd6",
+      "source_sha256": "28a00cba6d9294d064ab8eb0d38e764c970b5c558e80d11361f51d5646741958",
+      "edits": {
+        "crop_xywh": [
+          620,
+          235,
+          3080,
+          1430
+        ]
+      }
+    },
+    {
+      "path": "assets/screenshots/speech-distribution.png",
+      "kind": "screenshot",
+      "source_kind": "user-provided-frontend-crop",
+      "sha256": "d230c08b7f029b764dfc979317a70becc55bb0ac81e4e6b077fe251c27775aa5",
+      "source_sha256": "20d37f0ce19c88658a0f27d5f46f19fd9aeb3cfa4341e4dc284cedeb94e2adb6",
+      "edits": {
+        "crop_xywh": [
+          620,
+          100,
+          3080,
+          1350
+        ]
+      }
+    },
+    {
+      "path": "assets/screenshots/metric-details.png",
+      "kind": "screenshot",
+      "source_kind": "user-provided-frontend-crop",
+      "sha256": "0e097b112fbcd300ecd9865cbe119adfa84c9e0003dd9937bf111cfb2f90f814",
+      "source_sha256": "982d406fa4b004a680610c12bed905e43e356d2f69998429bcbf90287e5540e6",
+      "edits": {
+        "crop_xywh": [
+          620,
+          80,
+          3080,
+          1490
+        ]
+      }
+    },
+    {
+      "path": "assets/demo/poster.png",
+      "kind": "poster",
+      "source_kind": "user-provided-frontend-crop",
+      "sha256": "829f556ddfb453e66ba1548446bdf817d95f0a9ba443939bb737f61ef5149e98",
+      "source_sha256": "2d48cb6562607eb0b64a20259b8fb71e9c168f832e890cc1a7da41cc2ad08083",
+      "edits": {
+        "crop_xywh": [
+          620,
+          420,
+          3080,
+          950
+        ]
+      }
+    },
+    {
+      "path": "assets/demo/product-walkthrough.mp4",
+      "kind": "video",
+      "source_kind": "user-provided-frontend-recording-edited",
+      "sha256": "cde5fcf390daafc0ab088fec205a3be59fedd5da85dc0fc912df53d776965dbd",
+      "source_sha256": "e19c640fc59a1746f1786c95d73ad87d301d0ef4b8910b58f218540746fa3fd3",
+      "edits": {
+        "segments": [
+          {
+            "start_sec": 16,
+            "end_sec": 39,
+            "crop_xywh": [
+              640,
+              140,
+              3000,
+              1552
+            ]
+          },
+          {
+            "start_sec": 40,
+            "end_sec": 45,
+            "crop_xywh": [
+              80,
+              140,
+              3560,
+              1552
+            ]
+          }
+        ],
+        "resize": "fit 1920x1080 with padding",
+        "audio": "removed",
+        "playback_speed": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "sample_kind": "synthetic",
+  "title": "证据范围与评分 · 四种合成场景",
+  "chapters": [
+    {
+      "id": "available",
+      "title": "正常可评价",
+      "narrative": "两项信号均可评价，按原权重计算，结果为 85。",
+      "signals": [
+        {"name": "signal_a", "score": 80, "weight": 1, "scope": "standard"},
+        {"name": "signal_b", "score": 90, "weight": 1, "scope": "standard"}
+      ]
+    },
+    {
+      "id": "missing",
+      "title": "缺少证据",
+      "narrative": "兼容数值 50 没有可用证据，另一项数值缺失；两项均退出计算，显示待确认。",
+      "signals": [
+        {"name": "compatibility_value", "score": 50, "weight": 1, "scope": "unavailable"},
+        {"name": "missing_value", "score": null, "weight": 1, "scope": "standard"}
+      ]
+    },
+    {
+      "id": "partial",
+      "title": "部分可评价",
+      "narrative": "只保留教师侧信号 80；学生侧信号的证据不可用，结果仅代表保留的一项。",
+      "signals": [
+        {"name": "teacher", "score": 80, "weight": 1, "scope": "standard"},
+        {"name": "student", "score": 20, "weight": 3, "scope": "unavailable"}
+      ]
+    },
+    {
+      "id": "zero",
+      "title": "可靠零值",
+      "narrative": "在本合成输入中明确标记为可评价的零值，继续参与计算并显示 0。",
+      "signals": [
+        {"name": "observed_zero", "score": 0, "weight": 1, "scope": "standard"}
+      ]
+    }
+  ]
+}

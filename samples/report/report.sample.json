@@ -1,27 +1,78 @@
 {
   "sample_kind": "synthetic",
-  "title": "演示课堂 · 可评价范围示例",
+  "title": "证据范围与评分 · 四种合成场景",
   "chapters": [
     {
-      "id": "interaction",
-      "title": "师生互动",
-      "score": 50,
-      "evaluation": "unavailable",
-      "narrative": "模拟学生证据不可用，兼容数值不作为质量评价。"
-    },
-    {
-      "id": "content",
-      "title": "教学内容",
-      "score": 80,
-      "evaluation": "partial",
-      "narrative": "模拟部分信号可用，仅展示该范围内的评价。"
-    },
-    {
-      "id": "observed-zero",
-      "title": "有效零观测",
-      "score": 0,
+      "id": "available",
+      "title": "正常可评价",
+      "narrative": "两项信号均可评价，按原权重计算，结果为 85。",
+      "score": 85.0,
       "evaluation": "available",
-      "narrative": "模拟可靠证据下的真实零值，保持显示为 0。"
+      "effective_weights": {
+        "signal_a": 1.0,
+        "signal_b": 1.0
+      },
+      "included": [
+        "signal_a",
+        "signal_b"
+      ],
+      "excluded": []
+    },
+    {
+      "id": "missing",
+      "title": "缺少证据",
+      "narrative": "兼容数值 50 没有可用证据，另一项数值缺失；两项均退出计算，显示待确认。",
+      "score": null,
+      "evaluation": "unavailable",
+      "effective_weights": {
+        "compatibility_value": 0.0,
+        "missing_value": 0.0
+      },
+      "included": [],
+      "excluded": [
+        {
+          "name": "compatibility_value",
+          "reason": "evidence unavailable"
+        },
+        {
+          "name": "missing_value",
+          "reason": "value missing"
+        }
+      ]
+    },
+    {
+      "id": "partial",
+      "title": "部分可评价",
+      "narrative": "只保留教师侧信号 80；学生侧信号的证据不可用，结果仅代表保留的一项。",
+      "score": 80.0,
+      "evaluation": "partial",
+      "effective_weights": {
+        "teacher": 1.0,
+        "student": 0.0
+      },
+      "included": [
+        "teacher"
+      ],
+      "excluded": [
+        {
+          "name": "student",
+          "reason": "evidence unavailable"
+        }
+      ]
+    },
+    {
+      "id": "zero",
+      "title": "可靠零值",
+      "narrative": "在本合成输入中明确标记为可评价的零值，继续参与计算并显示 0。",
+      "score": 0.0,
+      "evaluation": "available",
+      "effective_weights": {
+        "observed_zero": 1.0
+      },
+      "included": [
+        "observed_zero"
+      ],
+      "excluded": []
     }
   ]
 }
