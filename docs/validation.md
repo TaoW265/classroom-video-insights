@@ -1,42 +1,42 @@
-# 验证记录
+# 测试与覆盖范围
 
-## 当前版本：用户素材替换（2026-10-28）
+## 运行检查
 
-按用户要求移除自制HTML页面、生成器和相关测试，以及此前生成的截图、封面、录屏和临时浏览器产物。旧本地预览服务已停止。实际产品展示改用用户提供的5张截图与实录的裁切版本，不新建替代前端。
+需要Python 3.10+、Node.js 22+和Git。从仓库根目录运行：
 
-公开代码保留为独立、离线的示例：合成输入→Python聚合→JSON→JavaScript `scoreView`终端结果。四种状态为85、待确认、80（部分可评价）和0；它们不是实际前端截图中报告的数据来源。
+~~~sh
+python3 -m unittest discover -s examples/evidence-scoring -p 'test_*.py' -v
+node --test examples/report-display/*.test.mjs
+python3 -m unittest discover -s scripts -p 'test_*.py' -v
+python3 scripts/run-demo.py --check
+python3 scripts/check-showcase.py
+~~~
 
-| 检查 | 命令 | 结果 |
+2026-10-28验证结果：**38项行为测试通过，零失败、零跳过**。
+
+| 测试组 | 数量 | 覆盖内容 |
+| --- | ---: | --- |
+| Python聚合与输入转换 | 11 | 证据范围、零值、有效权重、旧字段、非法输入和溢出 |
+| JavaScript显示与终端入口 | 10 | 四种显示状态、旧值兼容、输入校验及实际CLI输出 |
+| 内容检查器 | 17 | 素材哈希与来源、引用、敏感文件、Git索引及本机文件排除 |
+
+`run-demo.py --check`验证结果JSON可由输入逐字节重建，且不写文件；`check-showcase.py`核对7项素材与本地引用。CI使用Python 3.12和Node.js 22，[已完成的运行记录](https://github.com/TaoW265/classroom-video-insights/actions/runs/40673280654)。
+
+## 媒体检查
+
+截图已逐张查看。28秒录屏通过完整解码、浏览器播放和中段、末尾定位检查；编码为H.264/yuv420p、1920×1080、15fps，仅含视频流。
+
+媒体来源、SHA256和编辑参数见[素材清单](../assets/media-manifest.json)。内容扫描与画面复核的边界见[适用范围](limitations.md)。
+
+## 平台历史验收
+
+2026-10-12的维护迁移记录与上面的示例测试分开统计：
+
+| 模块 | 结果 | 来源提交 |
 | --- | --- | --- |
-| 聚合与输入转换 | `python3 -m unittest discover -s examples/evidence-scoring -p 'test_*.py' -v` | 11项通过 |
-| JavaScript显示与终端入口 | `node --test examples/report-display/*.test.mjs` | 10项通过 |
-| 检查器正反例 | `python3 -m unittest discover -s scripts -p 'test_*.py' -v` | 17项通过 |
-| 合成结果生成 | `python3 scripts/run-demo.py` | JSON及实际JS显示输出通过，不生成HTML |
-| 生成一致性 | `python3 scripts/run-demo.py --check` | JSON字节一致，无写入 |
-| 素材、内容与引用 | `python3 scripts/check-showcase.py` | 7项精确媒体清单、本地引用与敏感文件保护通过 |
-| 补丁格式 | `git diff --check` | 通过 |
+| 后端与分析包 | 751通过、1跳过 | `6493fa589f8172ecbbaf964ade1d5538e780aa1e` |
+| Step1 | 41通过 | `821d8e9e7bfe4ae70ed748eccdd53347d3ab0ba7` |
+| 前端 | 85通过、构建成功 | `b8a93044d262c11bfc4cceb00831a3c3e72c8bec` |
+| 模型选择适配 | 8通过 | 同次维护记录 |
 
-行为测试合计**38项，零失败、零跳过**；不累计重复执行，也不沿用已删除HTML版本的测试数。Node测试覆盖真实CLI输出、旧值兼容、非法输入与无输入修改；检查器新增原始素材目录排除、强制暂存拒绝、链接拒绝、Finder元数据本地忽略但禁止交付、旧HTML禁止重新出现的负例。CI固定Python3.12、Node22；本表记录本地验证，远端CI状态以GitHub Actions为准。
-
-## 素材与编辑检查
-
-- 原始5张PNG和1段MP4均由用户提供，本轮编辑前后逐文件SHA256保持一致。原片约66.97秒、含音轨，保留在本机且不纳入交付。
-- [5张产品截图](../assets/screenshots/README.md)逐张查看后裁切，去掉学校及文件名、历史列表、外围控件和课堂画面；没有重写报告指标或把实际结果标成合成。
-- [演示片段](../assets/demo/product-walkthrough.mp4)只使用原片的报告浏览部分，排除课堂视频和逐句实录页面、去除音轨，并按侧栏状态调整裁切；导出为28秒、7,587,417字节、1920×1080/15fps的H.264/yuv420p MP4，ffprobe确认仅视频流、没有音频。复核源片0–65秒每5秒抽帧、报告部分16–44秒每秒一帧及转场边界，并查看导出后关键帧。报告内原有短引用和数值保留；并非逐帧隐私或法律认证。完整解码与本地播放器播放、进度定位检查通过。
-- [素材清单](../assets/media-manifest.json)绑定7项派生文件的来源、编辑说明与SHA256。学校等原始身份不进入文件名或图注。
-- 原始素材及本机工具产物目录被Git忽略；检查器也拒绝强制加入索引或从文档引用这些目录。敏感文件、明确内网标记与明显凭据保护保留。有限扫描不认证素材版权或报告评价准确性。
-
-本轮没有上传课堂、调用模型、修改生产代码、重跑课程或切换生产服务。2026-10-28仓库所有者授权提交并推送本次作品集与清单内的编辑素材；原始素材及本机工具产物不进入提交。
-
-## 原系统历史记录（本轮未重验）
-
-以下仅保留旧公开文档中的2026-10-12维护迁移记录：后端与分析包751 passed / 1 skipped；Step1 41 passed；前端85 passed且构建成功；模型选择适配8 passed。原68条任务状态及已登记报告哈希保持，三个结果接口抽查成功。
-
-这些不是本仓库测试数，不与上面的38项合并，也不推导成当前部署或全部课堂均稳定。对应旧来源快照：
-
-- 后端 `6493fa589f8172ecbbaf964ade1d5538e780aa1e`
-- Step1 `821d8e9e7bfe4ae70ed748eccdd53347d3ab0ba7`
-- 前端 `b8a93044d262c11bfc4cceb00831a3c3e72c8bec`
-- 部署 `76f82a4a856ec20001d608070007582b51380a0d`
-
-[历史性能](performance.md)未本轮重跑。没有新增生产验收或课堂评价准确率基准；职责细分与后续公开权限见[贡献说明](contributions.md)。
+迁移检查另包含68条任务状态、已登记报告哈希与三个结果接口。部署记录为`76f82a4a856ec20001d608070007582b51380a0d`。这些记录描述当时的回归与迁移范围，不能据此推导全部课堂或当前部署的稳定性。[性能计时口径](performance.md)
